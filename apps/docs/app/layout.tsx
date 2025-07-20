@@ -5,7 +5,7 @@ import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
 
 export const metadata = {
-  metadataBase: new URL('https://astra-ui.dev'), // Change to Astra's domain
+  metadataBase: new URL('https://astra-ui.dev'), 
   title: {
     template: '%s - Astra UI'
   },
@@ -47,7 +47,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           banner={<Banner storageKey="astra-ui-banner">🎉 Astra UI Beta is Live!</Banner>}
           navbar={navbar}
           footer={<Footer>MIT {new Date().getFullYear()} © Astra UI.</Footer>}
-          editLink="Edit this page on GitHub"
+          editLink={null}
+          feedback={{content:null}}
           docsRepositoryBase="https://github.com/your-org/astra-ui-docs" // Update to Astra's repo
           sidebar={{ defaultMenuCollapseLevel: 1 }}
           pageMap={pageMap}
