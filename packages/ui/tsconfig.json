@@ -11,7 +11,13 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "module": "ESNext",
-    "target": "ESNext"
+    "target": "ESNext",
+     "baseUrl": ".",
+     "paths": {
+      "@lib/*": ["./src/lib/*"],
+       "@astra/ui": ["./src/index.ts"],
+      "@astra/ui/*": ["./src/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["dist", "build", "node_modules"]

@@ -6,14 +6,22 @@
   "types": "./dist/index.d.ts",
   "sideEffects": [
     "**/*.css"
+    
   ],
   "files": [
     "dist"
   ],
   "exports": {
+     "./components/*": {
+      "import": "./dist/components/*/index.js",
+      "require": "./dist/components/*/index.js",
+      "types": "./dist/components/*/index.d.ts"
+    },
     ".": {
       "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.umd.js"
+   
     },
     "./styles.css": "./dist/index.css"
   },
