@@ -5,8 +5,14 @@ import { Carousel, CarouselItem } from '@astra/ui';
 import { Input } from '@astra/ui';
 import { Mail, Lock,PyramidIcon } from "lucide-react";
 import { Check, AlertCircle, Info, Bell, Star, Settings, Loader2 } from "lucide-react";
-
+import ModalExamplePage from './components/ModalExamples';
+import NavbarExamples from './components/NavbarExamples';
+import DropDownExamples from './components/DropDownExamples';
+import {Avatar} from "@astra/ui"
 import { Badge } from '@astra/ui';
+
+import KeybabMenuExamples from './components/KeybabMenu';
+import StepProgessExamples from './components/StepProgessExamples';
 const CardCarousel = () => {
   const cardData = [
     {
@@ -43,7 +49,8 @@ const CardCarousel = () => {
           autoplay
           showDots
           showControls
-          options={{ loop: true ,axis:'x'}}
+          options={{ loop: true ,axis:'y'}}
+          
        
         >
           {cardData.map((card, index) => (
@@ -87,7 +94,7 @@ const CardCarousel = () => {
 
 const Page = () => {
   return (
-    <div className="p-10 space-y-12">
+    <div className="p-10 space-y-12 -z-10">
       <h1 className="text-6xl font-extrabold text-center">Astra UI Showcase</h1>
       
       <div className="space-y-6">
@@ -149,7 +156,9 @@ const Page = () => {
         placeholder="your username"
         type="text"
         variant="ghost"
+        helperText='min 7 character'
       />
+      
 
       <Input
         label="Password"
@@ -285,7 +294,7 @@ const Page = () => {
       </Badge>
     </div>
   </div>
-
+ 
   <div className="space-y-4">
     <h2 className="text-4xl font-bold">Closable Badges</h2>
     <div className="flex flex-wrap items-center gap-3">
@@ -314,9 +323,6 @@ const Page = () => {
   <div className="space-y-4">
     <h2 className="text-4xl font-bold">Interactive Badges</h2>
     <div className="flex flex-wrap items-center gap-3">
-      {/* <Badge interactive onClick={() => alert('Clicked!')}>
-        Clickable
-      </Badge> */}
       <Badge variant="secondary" interactive>
         Hover me
       </Badge>
@@ -360,6 +366,52 @@ const Page = () => {
     </div>
   </div>
 </div>
+<ModalExamplePage/>
+     <div className="p-10 space-y-6">
+      <h1 className="text-2xl font-bold">Avatar Variations</h1>
+
+      <div className="flex items-center gap-4">
+        <Avatar fallbackText="John Doe"  size="md"/>
+        <span>Default (md, rounded)</span>
+      </div>
+
+      <div className="flex items-center gap-4">
+        <Avatar size="sm" fallbackText="AB DEviller" status="online" />
+        <Avatar size="md" fallbackText="AB Suhel" />
+        <Avatar size="lg" fallbackText="AB Virat Kholi" />
+      </div>
+
+      <div className="flex items-center gap-4">
+        <Avatar shape="circle" fallbackText="CD" />
+        <Avatar shape="square" fallbackText="CD" />
+        <Avatar shape="rounded" fallbackText="CD" />
+      </div>
+
+      <div className="flex items-center gap-4">
+        <Avatar
+          src={`/profile_1.jpg`}
+          alt="Jane Doe"
+          size="lg"
+          shape="circle"
+          status="busy"
+        />
+        <Avatar
+          src={`/profile_1.jpg`}
+          fallbackText="Eleven hevean"
+          size="xl"
+          shape="circle"
+          status="away"
+        />
+        
+      </div>
+         
+    </div>
+   <NavbarExamples/>
+  <DropDownExamples/>
+ 
+<KeybabMenuExamples/>
+<StepProgessExamples/>
+
     </div>
   );
 };

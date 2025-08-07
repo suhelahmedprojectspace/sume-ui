@@ -5,7 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import type { EmblaOptionsType } from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { ArrowLeft, ArrowRight, ArrowUp, ArrowDown } from "lucide-react";
-import cn from "../../lib/cn";
+import cn from '../../lib/cn';
 
 type CarouselProps = {
   children: React.ReactNode;
@@ -188,25 +188,21 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         ref={ref}
         className={cn(
           "group/carousel relative w-full overflow-hidden", 
+          isVertical?"h-[400px] max-h-[80vh]":"",
           className,
-          { "h-[500px]": isVertical }
         )}
         role="region"
         aria-roledescription="carousel"
       >
         <div className="overflow-hidden h-full" ref={emblaRef}>
           <div className={cn(
-            "flex",
-            { 
-              "flex-col gap-4": isVertical,
-              "flex-row gap-4": !isVertical
-            }
+            isVertical?"flex flex-col gap-4 h-full min-h-0":"flex flex-row gap-4"
           )}>
             {React.Children.map(children, (child, index) => (
               <div 
                 className={cn(
                   "relative flex-shrink-0",
-                  isVertical ? "h-full" : "w-full"
+                  isVertical ? "h-full w-full" : "w-full h-full"
                 )}
                 key={index}
               >
@@ -248,7 +244,7 @@ const CarouselItem = React.forwardRef<HTMLDivElement, CarouselItemProps>(
     return (
       <Component 
         ref={ref}
-        className={cn("h-full w-full", className)}
+        className={cn("h-full w-full min-h-0", className)}
         role="group"
         aria-roledescription="slide"
         aria-label="Carousel Item"

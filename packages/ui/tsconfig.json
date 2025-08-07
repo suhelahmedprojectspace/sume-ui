@@ -14,9 +14,8 @@
     "target": "ESNext",
      "baseUrl": ".",
      "paths": {
-      "@lib/*": ["./src/lib/*"],
        "@astra/ui": ["./src/index.ts"],
-      "@astra/ui/*": ["./src/*"]
+      "@astra/ui/*": ["./src/index.ts"]
     }
   },
   "include": ["src"],
