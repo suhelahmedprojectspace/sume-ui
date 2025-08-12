@@ -195,7 +195,7 @@ export const Stepper: React.FC<StepperProps> = ({
               </div>
             </div>
 
-            <div className={`mt-2 text-sm ${direction === "vertical" ? "mt-0" : ""}`}>
+            <div className={`mt-2 text-sm ${direction === "vertical" ? "mt-0" : "text-wrap"}`}>
               {label}
             </div>
           </div>
