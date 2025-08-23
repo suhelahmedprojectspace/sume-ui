@@ -1,4 +1,4 @@
-#🌌 Sumi UI
+# 🌌 Sumi UI
 _**Sumi ui is a sleek, modern, and customizable component library built with React and Tailwind CSS. Designed for speed, accessibility, and developer experience, Astra helps you build consistent and beautiful user interfaces effortlessly.**_
 
 
