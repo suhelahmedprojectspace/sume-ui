@@ -90,3 +90,6 @@ This library uses Tailwind CSS v4. The components come pre-styled but can be cus
 <Button className="bg-purple-500 hover:bg-purple-600">
 Custom Button
 </Button>
+
+
+## Thanks for exploring Sume UI. We’re grateful to the community of builders who inspire its design and direction. See you in Issues and Discussions.
