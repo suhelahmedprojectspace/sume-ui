@@ -1,22 +1,22 @@
 #🌌 Sumi UI
-Sumi ui is a sleek, modern, and customizable component library built with React and Tailwind CSS. Designed for speed, accessibility, and developer experience, Astra helps you build consistent and beautiful user interfaces effortlessly.
+_**Sumi ui is a sleek, modern, and customizable component library built with React and Tailwind CSS. Designed for speed, accessibility, and developer experience, Astra helps you build consistent and beautiful user interfaces effortlessly.**_
 
 
 
-##🚀 Features
-⚡ Blazing Fast: Lightweight and performance-optimized.
+## 🚀 Features
+_⚡ Blazing Fast: Lightweight and performance-optimized.
 🎨 Themeable: Easily customizable with Tailwind CSS and CSS variables.
 🧩 Modular Components: Use only what you need.
 ♿ Accessible: Follows WAI-ARIA standards.
 💅 Beautiful by Default: Minimal and elegant design system.
 📦 Tree-shakable: Optimized for modern bundlers.
-📦 Installationh
+📦 Installationh_
 
 ```bash
 npm install @sume/ui
 ```
 
-##🎨 Usage
+### 🎨 Usage
 ```bash
 import { Button, Card, Accordion } from '@sume/ui';
 
@@ -25,7 +25,7 @@ import { Button } from '@sume/ui/components/button';
 import { Accordion } from '@sume/ui/components/accordion';
 ```
 
-##Examples
+### Examples
 ```bash
 import '@sume/ui/styles.css';
 Basic Example
@@ -57,26 +57,26 @@ text
 export default App;
 ```
 
-###🎯 Available Components
-- Accordion - Collapsible content sections
-- Avatar - User profile images and initials
-- Badge - Status and category indicators
-- Button - Interactive buttons with variants
-- Card - Content containers
-- Carousel - Image and content sliders
-- CodeBlock - Syntax-highlighted code display
-- Dropdown - Contextual menus
-- FileUpload - File selection and upload
-- Input - Text input fields
-- KeybabMenu - Three-dot action menus
-- Modal - Dialog overlays
-- Navbar - Navigation headers
-- ProgressBar - Loading and progress indicators
-- Sidebar - Navigation sidebars
-- StepProgressBar - Multi-step progress indicators
-- TextArea - Multi-line text input
+## 🎯 Available Components
+ **Accordion** - Collapsible content sections
+ **Avatar** - User profile images and initials
+ **Badge** - Status and category indicators
+**Button** - Interactive buttons with variants
+**Card** - Content containers
+**Carousel** - Image and content sliders
+**CodeBlock**  - Syntax-highlighted code display
+**Dropdown** - Contextual menus
+**FileUpload** - File selection and upload
+**Input** - Text input fields
+**KeybabMenu** - Three-dot action menus
+**Modal** - Dialog overlays
+**Navbar**  - Navigation headers
+**ProgressBar** - Loading and progress indicators
+**Sidebar** - Navigation sidebars
+**StepProgressBar** - Multi-step progress indicators
+**TextArea** - Multi-line text input
   
-##🎨 Styling
+## 🎨 Styling
 This library uses Tailwind CSS v4. The components come pre-styled but can be customized:
 
 
