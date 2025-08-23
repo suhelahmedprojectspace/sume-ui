@@ -28,6 +28,20 @@ Supports multiple variants, sizes, loading states, and icon placement. Perfect f
 - Use \`outline\` for secondary actions or in button groups
 - Use \`ghost\` for tertiary actions or navigation
 - Use \`link\` for text-based actions that look like links
+
+
+
+## 🚀 Installation
+
+\`\`\`bash
+npm install @sume/ui
+# or
+yarn add @sume/ui
+# or
+pnpm add @sume/ui
+\`\`\`
+
+
         `,
       },
     },

@@ -4,6 +4,7 @@
     "outDir": "dist",
     "declaration": true,
     "declarationDir": "dist",
+    "declarationMap":true,
     "emitDeclarationOnly": false,
     "jsx": "react-jsx",
     "moduleResolution": "node",
@@ -11,11 +12,12 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "module": "ESNext",
-    "target": "ESNext",
+    "target": "es2020",
+     "lib": ["ES2020", "DOM", "DOM.Iterable"],
      "baseUrl": ".",
      "paths": {
-     "@sume/ui": ["../ui/src/index.ts"],
-      "@sume/ui/*": ["../ui/src/*"],
+     "@sume/ui": ["./src/index.ts"],
+      "@sume/ui/*": [".src/*"],
       "@sume/ui/components/*": ["../ui/src/components/*"]
     }
   },

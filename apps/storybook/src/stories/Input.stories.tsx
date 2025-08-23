@@ -62,6 +62,18 @@ Supports multiple variants, sizes, floating labels, validation states, and vario
 - Use **right addons** for actions like clear, toggle, or submit
 - Always provide **proper labels** for accessibility
 - Use **validation states** to provide immediate feedback
+
+
+## 🚀 Installation
+
+\`\`\`bash
+npm install @sume/ui
+# or
+yarn add @sume/ui
+# or
+pnpm add @sume/ui
+\`\`\`
+
         `,
       },
     },

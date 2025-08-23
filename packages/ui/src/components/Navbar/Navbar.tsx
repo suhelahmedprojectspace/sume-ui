@@ -13,7 +13,7 @@ export interface NavItem {
   items?: Array<{ label: string; href: string }>;
 }
 
-interface NavbarProps {
+export interface NavbarProps {
   logo: React.ReactNode;
   menuItems: NavItem[];
   children?: React.ReactNode; // right-side content (e.g., button, search)

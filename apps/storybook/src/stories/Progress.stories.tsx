@@ -55,6 +55,18 @@ The ProgressBar component provides a robust foundation for displaying progress w
 - **Accessibility First**: WCAG 2.1 AA compliant with screen reader support
 - **Animation Control**: Smooth transitions with reduced motion support
 
+## 🚀 Installation
+
+\`\`\`bash
+npm install @sume/ui
+# or
+yarn add @sume/ui
+# or
+pnpm add @sume/ui
+\`\`\`
+
+
+
 ### Advanced Features
 - **Multiple Variants**: 5 distinct visual styles (solid, soft, outline, gradient, striped)
 - **Flexible Labeling**: 4 label positions (left, center, right, inside) with custom content

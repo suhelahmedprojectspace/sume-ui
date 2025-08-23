@@ -22,6 +22,8 @@ Badges help users **scan information quickly** without reading full sentences.
 
 ---
 
+
+
 ## 🎯 When to Use
 - **Status indicators**: "Online", "Active", "Failed"  
 - **Category tags**: "React", "Design", "Bug Fix"  
@@ -48,6 +50,19 @@ Badges help users **scan information quickly** without reading full sentences.
 - **Amber (warning)**: Caution, pending, attention needed
 - **Blue (info)**: Neutral information, updates
 - **Purple (premium)**: Special features, paid content
+
+
+## 🚀 Installation
+
+\`\`\`bash
+npm install @sume/ui
+# or
+yarn add @sume/ui
+# or
+pnpm add @sume/ui
+\`\`\`
+
+
         `
       }
     }

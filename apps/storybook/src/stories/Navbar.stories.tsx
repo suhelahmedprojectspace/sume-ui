@@ -144,6 +144,19 @@ The Navbar uses a mobile-first responsive design philosophy:
 - **Loading Performance**: Fast first paint with critical CSS
 - **Memory Efficient**: Proper cleanup of event listeners and animations
 
+
+## 🚀 Installation
+
+\`\`\`bash
+npm install @sume/ui
+# or
+yarn add @sume/ui
+# or
+pnpm add @sume/ui
+\`\`\`
+
+
+
 ## 📚 Implementation Examples
 
 ### Basic Responsive Navigation

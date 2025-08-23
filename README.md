@@ -1,6 +1,6 @@
-# 🌌 Astra UI
+# 🌌 Sumi UI
 
-**Astra** is a sleek, modern, and customizable component library built with React and Tailwind CSS. Designed for speed, accessibility, and developer experience, Astra helps you build consistent and beautiful user interfaces effortlessly.
+**Sumi ui** is a sleek, modern, and customizable component library built with React and Tailwind CSS. Designed for speed, accessibility, and developer experience, Astra helps you build consistent and beautiful user interfaces effortlessly.
 
 ![npm](https://img.shields.io/npm/v/astra-ui?color=blue)
 ![license](https://img.shields.io/npm/l/astra-ui)

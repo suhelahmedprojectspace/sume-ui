@@ -7,7 +7,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { ArrowLeft, ArrowRight, ArrowUp, ArrowDown } from "lucide-react";
 import cn from '../../lib/cn';
 
-type CarouselProps = {
+export type CarouselProps = {
   children: React.ReactNode;
   className?: string;
   options?: EmblaOptionsType;

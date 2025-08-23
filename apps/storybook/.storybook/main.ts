@@ -8,7 +8,7 @@ function getAbsolutePath(value: string): string {
 
 const config: StorybookConfig = {
   stories: [
-    "../src/**/*.mdx",
+      '../src/**/*.mdx',    
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
   addons: [
@@ -48,6 +48,7 @@ const config: StorybookConfig = {
   typescript: {
     reactDocgen: 'react-docgen-typescript',
   },
+  
 };
 
 export default config;

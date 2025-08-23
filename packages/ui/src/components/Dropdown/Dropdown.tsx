@@ -11,7 +11,7 @@ interface DropdownOption {
   disabled?: boolean;
 }
 
-interface DropdownProps {
+export interface DropdownProps {
   options: DropdownOption[];
   value?: string | number | (string | number)[];
   placeholder?: string;

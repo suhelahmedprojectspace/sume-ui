@@ -1,203 +1,221 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Star, Zap, Github, Palette, LayoutGrid, Rocket, Code, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ChevronRight, Star, Github, Copy, Check, Terminal } from 'lucide-react';
 
-const HeroSection = () => {
-  const [activeFeature, setActiveFeature] = useState(0);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
+const HERO_ACCENT = "from-blue-400 via-indigo-500 to-blue-600";
+
+export default function HeroSection() {
+  const [cursor, setCursor] = useState({ x: 0, y: 0 });
+  const [copied, setCopied] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        setCursorPosition({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top
-        });
+    function handle(e: MouseEvent) {
+      if (ref.current) {
+        const rect = ref.current.getBoundingClientRect();
+        setCursor({ x: e.clientX - rect.left, y: e.clientY - rect.top });
       }
-    };
+    }
 
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener('mousemove', handleMouseMove);
+    const element = ref.current;
+    
+    if (element) {
+      element.addEventListener("mousemove", handle);
     }
 
     return () => {
-      if (container) {
-        container.removeEventListener('mousemove', handleMouseMove);
+      if (element) {
+        element.removeEventListener("mousemove", handle);
       }
     };
   }, []);
 
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText('npm install @sume/ui');
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
+
   return (
-    <div 
-      ref={containerRef}
-      className="relative min-h-screen flex flex-col bg-gradient-to-br from-gray-900 to-gray-950 items-center justify-center text-center px-4 overflow-hidden"
+    <section
+      ref={ref}
+      className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-slate-950 to-slate-900 overflow-hidden px-4 text-center"
     >
-      {/* Animated background elements */}
-      <div 
-        className="absolute inset-0 opacity-20 pointer-events-none"
+      {/* Muted radial accent bg */}
+      <div
+        className="absolute inset-0 pointer-events-none transition-opacity duration-700"
         style={{
-          backgroundImage: `radial-gradient(circle at ${cursorPosition.x}px ${cursorPosition.y}px, rgba(99, 102, 241, 0.2) 0px, transparent 70%)`
+          backgroundImage: `radial-gradient(800px 500px at ${cursor.x}px ${cursor.y}px, rgba(56,189,248,0.14) 0%, transparent 80%)`,
         }}
       />
-      
-      <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl animate-pulse-slow" />
-      <div className="absolute bottom-20 right-10 w-64 h-64 bg-amber-400/10 rounded-full blur-3xl animate-pulse-medium" />
-      
-      {/* Floating particles */}
-      {[...Array(30)].map((_, i) => (
+
+      {/* Subtle illustration accent */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 0.15, scale: 1 }}
+        transition={{ duration: 1.5 }}
+        className="absolute top-[12vh] right-[18vw] w-[340px] h-[340px] rounded-full bg-blue-500/20 blur-3xl z-0"
+      />
+
+      {/* Gentle grid overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.06) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(255,255,255,0.06) 1.5px, transparent 1.5px)',
+          backgroundSize: '42px 42px',
+        }}
+      />
+
+      {/* Animated floating dots, staged */}
+      {[0,1,2,3].map(i => (
         <motion.div
           key={i}
-          className="absolute rounded-full bg-white/10"
+          className="absolute bg-blue-400/20 rounded-full"
           style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            width: `${Math.random() * 10 + 2}px`,
-            height: `${Math.random() * 10 + 2}px`,
+            top: `${30 + i*15}%`,
+            left: `${10 + i*18}%`,
+            width: `${8 + i*3}px`,
+            height: `${8 + i*3}px`
           }}
+          initial={{ scale: 0.7, y: 0 }}
           animate={{
-            y: [0, -20, 0],
-            x: [0, (Math.random() - 0.5) * 20, 0],
+            scale: [0.7, 1.14, 0.7],
+            y: [0, -15, 0]
           }}
           transition={{
-            duration: Math.random() * 5 + 3,
+            duration: 6 + i,
             repeat: Infinity,
             ease: "easeInOut",
+            delay: i
           }}
         />
       ))}
 
-      <div className="relative z-10 max-w-6xl">
-        {/* Animated logo/badge */}
+      <div className="relative z-10 flex flex-col items-center justify-center max-w-4xl mx-auto">
+        {/* Pre-headline badge */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-2 mb-8 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full border border-indigo-400/30 shadow-lg shadow-indigo-500/20"
+          transition={{ delay: 0.12 }}
+          className="inline-flex items-center gap-2 px-4 py-2 mb-7 bg-slate-900/80 ring-1 ring-inset ring-blue-500/10 rounded-full text-blue-200 font-medium text-xs shadow-lg"
         >
           <Star className="w-4 h-4 text-amber-300" fill="currentColor" />
-          <span className="text-sm font-medium tracking-wider text-white">
-            VERSION 1.0 RELEASED
-          </span>
+          <span className="tracking-widest">VERSION 1.0 RELEASED</span>
         </motion.div>
-        
-        {/* Animated headline */}
+
+        {/* Headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white"
+          transition={{ delay: 0.18 }}
+          className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-white"
         >
-          <span className="inline-block mr-2">Designing at the</span>
-          <motion.span
-            className="inline-block bg-gradient-to-r from-sky-400 to-blue-500 text-transparent bg-clip-text"
-            animate={{ 
-              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] 
-            }}
-            transition={{ 
-              duration: 6, 
-              repeat: Infinity,
-              ease: "linear"
-            }}
-            style={{
-              backgroundSize: "200% 200%",
-              backgroundImage: "linear-gradient(45deg, #38bdf8, #3b82f6, #38bdf8)",
-            }}
-          >
-            Speed
-          </motion.span>
-          <span className="inline-block mx-2">of</span>
-          <motion.span 
-            className="inline-block bg-yellow-300 text-gray-900 px-4 py-2 rounded-lg shadow-lg"
-            animate={{ 
-              rotate: [0, 2, -2, 2, 0],
-              scale: [1, 1.05, 1],
-            }}
-            transition={{ 
-              duration: 4, 
-              repeat: Infinity,
-              repeatType: "reverse"
-            }}
-          >
-            Light
-          </motion.span>
+          <span>Designing at the </span>
+          <span className={`bg-gradient-to-r ${HERO_ACCENT} bg-clip-text text-transparent animate-gradient-move`}>
+            speed of light
+          </span>
         </motion.h1>
 
-        {/* Animated description */}
+        {/* Description */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="max-w-3xl mx-auto text-lg md:text-xl text-gray-300 mb-12 leading-relaxed"
+          transition={{ delay: 0.27 }}
+          className="max-w-2xl mx-auto text-base md:text-xl text-slate-300 mb-8"
         >
-          <span className="bg-gradient-to-r from-pink-400 to-rose-500 text-transparent bg-clip-text font-semibold">
-            Sume UI
-          </span>{" "}
-          is your modern{" "}
-          <span className="underline decoration-wavy decoration-sky-400">
-            React component library
-          </span>{" "}
-          — sleek, accessible, and{" "}
-          <span className="bg-green-200 text-green-900 px-2 py-1 rounded">
-            fully customizable
-          </span>
-          . Build apps that look{" "}
-          <span className="italic font-semibold text-purple-400">
-            stellar
-          </span>{" "}
-          without touching a{" "}
-          <span className="bg-orange-200 text-orange-900 px-2 py-1 rounded">
-            design tool
-          </span>
-          , and ship them{" "}
-          <span className="bg-gradient-to-r from-indigo-400 to-indigo-600 text-transparent bg-clip-text font-bold">
-            faster than ever
-          </span>
-          .
+          <span className="text-blue-300 font-semibold">Sume UI</span> is a modern React component library—minimal, accessible, and <span className="text-blue-200 font-semibold">fully customizable</span>. Build professional apps visually fast—<span className="italic text-indigo-300 font-medium">without design drama</span>—and ship to production at next-gen speed.
         </motion.p>
 
-        {/* CTA buttons */}
+        {/* NPM Install Command */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="flex flex-col sm:flex-row justify-center gap-4"
+          transition={{ delay: 0.32 }}
+          className="mb-8 w-full max-w-lg"
         >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/30 flex items-center justify-center gap-3 group"
-          >
-            Get Started
-            <motion.span 
-              animate={{ x: [0, 4, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
+          <div className="relative group">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+            <div className="relative flex items-center justify-between bg-slate-800/90 backdrop-blur-sm border border-slate-700/50 rounded-xl px-4 py-3 shadow-lg">
+              <div className="flex items-center gap-3">
+                <Terminal className="w-4 h-4 text-slate-400" />
+                <code className="text-slate-300 font-mono text-sm md:text-base">
+                  npm install @sume/ui
+                </code>
+              </div>
+              <motion.button
+                onClick={handleCopy}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="p-2 hover:bg-slate-700/50 rounded-lg transition-colors duration-200"
+                aria-label="Copy install command"
+              >
+                <motion.div
+                  initial={false}
+                  animate={copied ? "copied" : "default"}
+                  variants={{
+                    default: { opacity: 1, scale: 1 },
+                    copied: { opacity: 1, scale: 1.1 }
+                  }}
+                >
+                  {copied ? (
+                    <Check className="w-4 h-4 text-green-400" />
+                  ) : (
+                    <Copy className="w-4 h-4 text-slate-400 hover:text-blue-400" />
+                  )}
+                </motion.div>
+              </motion.button>
+            </div>
+          </div>
+          {copied && (
+            <motion.p
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -5 }}
+              className="text-center text-sm text-green-400 mt-2"
             >
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </motion.span>
-          </motion.button>
-          
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 bg-gray-800 text-white font-medium rounded-xl border border-gray-700 flex items-center justify-center gap-2"
-          >
-            <Github className="w-5 h-5" />
-            View on GitHub
-          </motion.button>
+              Copied to clipboard!
+            </motion.p>
+          )}
         </motion.div>
 
-        {/* Stats / Carousel preview */}
-       
-      
-      {/* Gradient bottom accent */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-indigo-500/10 to-transparent pointer-events-none" />
-    </div>
-    </div>
-  );
-};
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35 }}
+          className="flex flex-col sm:flex-row justify-center gap-3"
+        >
+          <motion.a
+            whileHover={{ scale: 1.04, y: -2 }}
+            whileTap={{ scale: 0.96 }}
+            href="#get-started"
+            className="px-8 py-4 bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 text-white font-bold rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all group"
+          >
+            Get Started
+            <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+          </motion.a>
+          <motion.a
+            whileHover={{ y: -1, borderColor: "#60a5fa" }}
+            whileTap={{ scale: 0.97 }}
+            href="https://github.com"
+            target="_blank"
+            rel="noopener"
+            className="px-8 py-4 bg-transparent ring-1 ring-slate-800 hover:ring-blue-400 text-white rounded-xl font-medium flex items-center gap-2 transition-all duration-200"
+          >
+            <Github className="w-5 h-5" />
+            GitHub
+          </motion.a>
+        </motion.div>
+      </div>
 
-export default HeroSection;
+      {/* Gradient bottom accent */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-blue-700/20 to-transparent pointer-events-none" />
+    </section>
+  );
+}

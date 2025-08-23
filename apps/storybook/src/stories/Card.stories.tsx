@@ -23,7 +23,8 @@ const meta: Meta<typeof Card> = {
 
 Cards are the **building blocks of modern UI** - they create visual boundaries, establish hierarchy, and make complex interfaces feel organized.
 
----
+
+
 
 ## 🎯 When to Use Cards
 - **Content display**: Articles, products, profiles, media  
@@ -57,6 +58,17 @@ Cards are the **building blocks of modern UI** - they create visual boundaries, 
 - Keyboard navigation for interactive elements  
 - Screen reader friendly content organization  
 - High contrast support for all themes  
+
+## 🚀 Installation
+
+\`\`\`bash
+npm install @sume/ui
+# or
+yarn add @sume/ui
+# or
+pnpm add @sume/ui
+\`\`\`
+
         `
       }
     }

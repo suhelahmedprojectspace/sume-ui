@@ -15,3 +15,16 @@ export * from './components/FileUpload/FileUpload';
 export * from './components/Dropdown/Dropdown';
 export * from './components/ProgessBar/ProgessBar';
 export * from './components/KeybabMenu/KebabMenu';
+
+
+export type { AccordionProps } from './components/Accordion';
+export type { ButtonProps } from './components/Button';
+export type {TextAreaProps} from './components/TextArea';
+export type {StepperProps} from './components/StepProgessBar';
+export type {NavbarProps} from './components/Navbar';
+export type {ModalProps} from './components/Modal';
+export type { KeybabMenuProps} from './components/KeybabMenu';
+export type { BadgeProps } from  './components/Badge';
+export type {CarouselProps} from './components/Carousel'
+export type {DropdownProps} from './components/Dropdown';
+export type {InputProps} from './components/Input';

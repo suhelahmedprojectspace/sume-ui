@@ -17,7 +17,9 @@ const meta: Meta<typeof FileUpload> = {
 
 FileUpload provides a **complete file handling experience** with real-time feedback, validation, and persistent storage.
 
----
+
+
+
 
 ## 🎯 When to Use FileUpload
 - **Profile/avatar uploads** - User profile pictures  
@@ -65,6 +67,18 @@ The component handles multiple visual states automatically:
 - **Loading state** during file processing  
 - **Error state** with clear problem descriptions  
 - **Success state** with file previews and management  
+
+
+## 🚀 Installation
+
+\`\`\`bash
+npm install @sume/ui
+# or
+yarn add @sume/ui
+# or
+pnpm add @sume/ui
+\`\`\`
+
         `
       }
     }

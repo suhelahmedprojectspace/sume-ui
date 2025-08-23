@@ -13,18 +13,15 @@ import {
   Bell,
   Globe,
   Lock,
+
   FileText,
   Star,
-
+  
   
 } from 'lucide-react';
 
 import { Accordion } from '@sume/ui/components/Accordion';
-
-
-
-type AccordionProps = React.ComponentProps<typeof Accordion>;
-
+type AccordionProps = React.ComponentProps<typeof Accordion>
 const meta: Meta<AccordionProps> = {
   title: 'Components/Accordion',
   component: Accordion,
@@ -39,6 +36,7 @@ const meta: Meta<AccordionProps> = {
 **Professional, accessible accordion component built with Framer Motion for smooth animations and comprehensive keyboard navigation.**
 
 The Accordion component provides a space-efficient way to present collapsible content sections with advanced features like multiple expansion modes, keyboard navigation, and customizable variants.
+
 
 ## 🎯 When to Use Accordion
 
@@ -121,6 +119,17 @@ The Accordion component provides a space-efficient way to present collapsible co
 - **Staggered Effects**: Content fades in after panel opens
 - **Motion Preferences**: Respects user's reduced motion settings
 - **Will-Change**: Optimized for GPU acceleration
+
+## 🚀 Installation
+
+\`\`\`bash
+npm install @sume/ui
+# or
+yarn add @sume/ui
+# or
+pnpm add @sume/ui
+\`\`\`
+
 
 ## 📚 Implementation Examples
 
@@ -453,7 +462,7 @@ describe('Accordion Component', () => {
         </Accordion.Item>
       </Accordion>
     );
-    
+
     // Both should be expandable simultaneously
     fireEvent.click(screen.getByText('Item 1'));
     fireEvent.click(screen.getByText('Item 2'));

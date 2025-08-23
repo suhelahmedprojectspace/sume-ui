@@ -20,6 +20,9 @@ Avatars help users **identify people quickly** in interfaces and create personal
 
 ---
 
+
+
+
 ## 🎯 When to Use
 - **User profiles**: Show who's logged in, profile pages  
 - **Comments/messages**: Identify who said what  
@@ -52,7 +55,20 @@ Avatars help users **identify people quickly** in interfaces and create personal
 - Proper alt text for screen readers  
 - Semantic roles and ARIA labels  
 - Keyboard navigation support  
-- High contrast status indicators  
+- High contrast status indicators 
+
+## 🚀 Installation
+
+\`\`\`bash
+npm install @sume/ui
+# or
+yarn add @sume/ui
+# or
+pnpm add @sume/ui
+\`\`\`
+
+
+
         `
       }
     }

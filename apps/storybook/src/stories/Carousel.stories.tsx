@@ -49,6 +49,17 @@ const meta: Meta<CarouselProps> = {
 - **Responsive Design**: Adapts to any screen size
 - **Accessibility**: WCAG 2.1 AA compliant
 
+## 🚀 Installation
+
+\`\`\`bash
+npm install @sume/ui
+# or
+yarn add @sume/ui
+# or
+pnpm add @sume/ui
+\`\`\`
+
+
 ## 📚 Basic Implementation
 
 \`\`\`tsx
@@ -111,6 +122,10 @@ function AdvancedCarousel() {
 - Proper ARIA roles and labels
 - Touch targets ≥44px for mobile accessibility
 - High contrast focus indicators
+
+
+
+
         `,
       },
     },

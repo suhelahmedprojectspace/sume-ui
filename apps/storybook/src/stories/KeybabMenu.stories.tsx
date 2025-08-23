@@ -240,6 +240,19 @@ A versatile kebab menu component (three-dots menu) that provides contextual acti
 - Handle both safe and destructive actions appropriately
 - Maintain excellent user experience with smooth animations
 - Ensure accessibility compliance for all users
+
+
+## 🚀 Installation
+
+\`\`\`bash
+npm install @sume/ui
+# or
+yarn add @sume/ui
+# or
+pnpm add @sume/ui
+\`\`\`
+
+
         `,
       },
     },

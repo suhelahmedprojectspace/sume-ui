@@ -30,11 +30,6 @@ A flexible, accessible modal dialog with animations and focus management.
 - 🎨 Multiple variants and sizes
 - 🔒 Configurable backdrop click behavior
 
-## Installation
-\`\`\`bash
-npm install @astra/modal
-\`\`\`
-
 ## Basic Usage
 \`\`\`tsx
 import { Modal } from '@astra/modal';
@@ -57,6 +52,16 @@ function MyComponent() {
   );
 }
 \`\`\`
+## 🚀 Installation
+
+\`\`\`bash
+npm install @sume/ui
+# or
+yarn add @sume/ui
+# or
+pnpm add @sume/ui
+\`\`\`
+
         `
       }
     }

@@ -1,0 +1,348 @@
+# 🌟 Sume UI
+
+*Modern, accessible React component library engineered for speed, consistency, and developer happiness.*
+
+Sume UI pairs elegant, production‑ready components with thoughtful APIs, first‑class TypeScript support, Tailwind‑friendly styling, and pragmatic motion. Whether building **dashboards**, **SaaS applications**, **marketing sites**, or **internal tools**, Sume UI helps teams ship beautiful interfaces faster—without sacrificing flexibility or accessibility.
+
+---
+
+## ✨ Core Principles
+
+**♿ Accessible by Default**  
+WCAG‑minded components with proper roles, labels, focus states, and keyboard support built‑in.
+
+**🔒 Type‑Safe**  
+Rich TypeScript types and IntelliSense to catch errors early and improve developer experience.
+
+**🎨 Design‑Friendly**  
+Clean defaults tuned for clarity, fully themeable via Tailwind utilities and CSS variables.
+
+**🧩 Composable**  
+Primitives and patterns designed to work naturally together across your entire application.
+
+**⚡ Performant**  
+Lightweight, tree‑shakable components with minimal runtime overhead and efficient rendering.
+
+**🎭 Pragmatic Motion**  
+Subtle, high‑quality animations that enhance UX while respecting user motion preferences.
+
+---
+
+## 📦 What's Included
+
+### 🔧 Foundation Components
+Essential building blocks for every interface
+
+- **Button** — Interactive actions with multiple variants and states
+- **Input** — Text input fields with validation and accessibility  
+- **TextArea** — Multi‑line text input with auto‑resize capabilities
+- **Card** — Content containers for organizing information
+- **Badge** — Status indicators and category labels
+- **Avatar** — User profile images and initials
+- **ProgressBar** — Loading and progress indicators
+
+### 🧭 Navigation & Flow
+Guide users through complex workflows
+
+- **Navbar** — Primary navigation headers
+- **Sidebar** — Secondary navigation panels
+- **Stepper** — Multi‑step process indicators
+- **Breadcrumb** — Hierarchical navigation paths
+- **Tabs** — Content organization and switching
+- **Pagination** — Large dataset navigation
+
+### 📊 Data Display & Feedback
+Present information and gather user input
+
+- **Accordion** — Collapsible content sections
+- **Dropdown** — Contextual menu and selection
+- **Modal** — Dialog overlays and confirmations
+- **Carousel** — Image and content sliders
+- **CodeBlock** — Syntax‑highlighted code display
+- **FileUpload** — Drag‑and‑drop file selection
+
+---
+
+## 🚀 Quick Start Guide
+
+### Installation
+
+Choose your preferred package manager:
+
+```bash npm install @sume/ui
+```
+
+```bash
+yarn add @sume/ui
+```
+```bash
+pnpm add @sume/ui
+```
+
+### Import Components
+
+```bash
+// Convenient package root imports
+import { Button, Card, Accordion } from '@sume/ui';
+```
+```bash
+// Or direct imports for better tree‑shaking
+import { Button } from '@sume/ui/components/button';
+import { Accordion } from '@sume/ui/components/accordion';
+```
+
+
+### Optional: Base Styles
+
+If your setup requires a base stylesheet:
+
+```bash
+import '@sume/ui/styles.css';
+```
+
+## 💡 Usage Examples
+
+### Simple Button & Card
+
+```bash
+import React from 'react';
+import { Button, Card } from '@sume/ui';
+
+export default function WelcomeCard() {
+return (
+<Card className="p-6 max-w-sm">
+<h3 className="text-xl font-semibold mb-4">Welcome to Sume UI</h3>
+<p className="text-gray-600 mb-4">
+Start building beautiful interfaces with our component library.
+</p>
+<Button variant="primary">Get Started</Button>
+</Card>
+);
+}
+```
+
+
+### Form with Validation
+```bash
+import React, { useState } from 'react';
+import { Input, TextArea, Button } from '@sume/ui';
+
+export default function ContactForm() {
+const [email, setEmail] = useState('');
+const [message, setMessage] = useState('');
+const isValid = email.includes('@') && message.length >= 10;
+
+return (
+<form className="space-y-4 max-w-md">
+<Input
+label="Email Address"
+type="email"
+value={email}
+onChange={(e) => setEmail(e.target.value)}
+placeholder="name@example.com"
+required
+/>
+
+  <TextArea
+    label="Message"
+    value={message}
+    onChange={(e) => setMessage(e.target.value)}
+    placeholder="Tell us what you think..."
+    maxLength={200}
+    showCounter
+    autoResize
+    required
+  />
+  
+  <div className="flex gap-2 pt-2">
+    <Button variant="outline" type="button">
+      Cancel
+    </Button>
+    <Button variant="primary" type="submit" disabled={!isValid}>
+      Send Message
+    </Button>
+  </div>
+</form>
+);
+}
+```
+
+### Multi‑Step Workflow
+
+```bash
+import React, { useState } from 'react';
+import { Stepper } from '@sume/ui';
+
+const steps = [
+{ step: 1, label: 'Account Setup' },
+{ step: 2, label: 'Profile Details' },
+{ step: 3, label: 'Verification' },
+{ step: 4, label: 'Complete' }
+];
+
+export default function OnboardingFlow() {
+const [activeStep, setActiveStep] = useState(1);
+
+const handleStepClick = (step) => {
+// Allow navigation to completed steps only
+if (step <= activeStep) {
+setActiveStep(step);
+}
+};
+
+return (
+<div className="max-w-2xl mx-auto p-6">
+<Stepper steps={steps} activeStep={activeStep} direction="horizontal" color="blue" onStepClick={handleStepClick} />
+  <div className="mt-8 p-6 bg-gray-50 rounded-lg">
+    <StepContent activeStep={activeStep} />
+  </div>
+</div>
+);
+}
+```
+
+## 🎨 Customization & Theming
+
+### Tailwind Integration
+
+Seamlessly customize with Tailwind utility classes:
+
+<button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg"> Gradient Button </button> 
+
+### CSS Custom Properties
+Brand your components with CSS variables:
+
+```bash
+
+:root {
+  /* Primary brand colors */
+  --sume-primary: #6366f1;
+  --sume-primary-hover: #4f46e5;
+  --sume-primary-focus: #3730a3;
+  
+  /* Typography */
+  --sume-font-family: 'Inter', system-ui, sans-serif;
+  --sume-font-size-base: 1rem;
+  
+  /* Border radius */
+  --sume-border-radius: 0.5rem;
+  --sume-border-radius-lg: 0.75rem;
+}
+
+/* Dark mode support */
+.dark {
+  --sume-primary: #818cf8;
+  --sume-primary-hover: #6366f1;
+  --sume-background: #1f2937;
+  --sume-text: #f9fafb;
+}
+```
+### Component Variants
+Use built‑in variants for consistent design:
+
+```bash
+{/* Button variants */}
+<Button variant="primary" size="lg">Primary Action</Button>
+<Button variant="secondary" size="md">Secondary Action</Button>
+<Button variant="outline" size="sm">Outline Style</Button>
+<Button variant="ghost">Ghost Button</Button>
+```
+```bash
+{/* Input sizes */}
+<Input size="sm" placeholder="Small input" />
+<Input size="md" placeholder="Default input" />
+<Input size="lg" placeholder="Large input" />
+```
+
+### 🛠️ Development Setup
+
+# Install Sume UI
+
+```bash
+npm install @sume/ui
+```
+
+## Install Tailwind CSS (if not already configured)
+```bash
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+## 🤔 Frequently Asked Questions
+
+*Quick answers to common questions about Sume UI*
+
+<div className="grid gap-6 md:grid-cols-2 mt-8">
+
+<div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-100">
+  <div className="flex items-start gap-4">
+    <div className="bg-blue-500 text-white p-2 rounded-lg flex-shrink-0">
+      <span className="text-sm font-bold">Q</span>
+    </div>
+    <div>
+      <h4 className="font-semibold text-gray-900 mb-2">Is tree-shaking supported?</h4>
+      <p className="text-gray-700 text-sm">Yes! Modern bundlers automatically eliminate unused code, keeping your bundle size optimal with individual imports.</p>
+    </div>
+  </div>
+</div>
+
+<div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl border border-green-100">
+  <div className="flex items-start gap-4">
+    <div className="bg-green-500 text-white p-2 rounded-lg flex-shrink-0">
+      <span className="text-sm font-bold">Q</span>
+    </div>
+    <div>
+      <h4 className="font-semibold text-gray-900 mb-2">Does it support dark mode?</h4>
+      <p className="text-gray-700 text-sm">Absolutely. CSS custom properties and Tailwind's dark utilities provide seamless theme switching.</p>
+    </div>
+  </div>
+</div>
+
+<div className="bg-gradient-to-br from-purple-50 to-violet-50 p-6 rounded-xl border border-purple-100">
+  <div className="flex items-start gap-4">
+    <div className="bg-purple-500 text-white p-2 rounded-lg flex-shrink-0">
+      <span className="text-sm font-bold">Q</span>
+    </div>
+    <div>
+      <h4 className="font-semibold text-gray-900 mb-2">How accessible are components?</h4>
+      <p className="text-gray-700 text-sm">WCAG 2.1 AA compliant with ARIA attributes, keyboard navigation, and screen reader support built-in.</p>
+    </div>
+  </div>
+</div>
+
+<div className="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-xl border border-amber-100">
+  <div className="flex items-start gap-4">
+    <div className="bg-amber-500 text-white p-2 rounded-lg flex-shrink-0">
+      <span className="text-sm font-bold">Q</span>
+    </div>
+    <div>
+      <h4 className="font-semibold text-gray-900 mb-2">Can I customize styling?</h4>
+      <p className="text-gray-700 text-sm">Completely flexible with Tailwind utilities, CSS variables, or built-in variant system for consistent design.</p>
+    </div>
+  </div>
+</div>
+
+<div className="bg-gradient-to-br from-teal-50 to-cyan-50 p-6 rounded-xl border border-teal-100">
+  <div className="flex items-start gap-4">
+    <div className="bg-teal-500 text-white p-2 rounded-lg flex-shrink-0">
+      <span className="text-sm font-bold">Q</span>
+    </div>
+    <div>
+      <h4 className="font-semibold text-gray-900 mb-2">TypeScript support level?</h4>
+      <p className="text-gray-700 text-sm">First-class with complete definitions, IntelliSense, and strict checking for superior developer experience.</p>
+    </div>
+  </div>
+</div>
+
+<div className="bg-gradient-to-br from-rose-50 to-pink-50 p-6 rounded-xl border border-rose-100">
+  <div className="flex items-start gap-4">
+    <div className="bg-rose-500 text-white p-2 rounded-lg flex-shrink-0">
+      <span className="text-sm font-bold">Q</span>
+    </div>
+    <div>
+      <h4 className="font-semibold text-gray-900 mb-2">Production ready?</h4>
+      <p className="text-gray-700 text-sm">Battle-tested with comprehensive testing, performance optimization, and enterprise-grade reliability.</p>
+    </div>
+  </div>
+</div>
+
+</div>

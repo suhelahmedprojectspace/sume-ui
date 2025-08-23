@@ -134,6 +134,19 @@ A highly customizable dropdown/select component that provides users with the abi
 - Maintain consistent UI/UX across your application
 - Ensure accessibility compliance
 - Provide smooth, animated interactions
+
+
+## 🚀 Installation
+
+\`\`\`bash
+npm install @sume/ui
+# or
+yarn add @sume/ui
+# or
+pnpm add @sume/ui
+\`\`\`
+
+
         `,
       },
     },

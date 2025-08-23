@@ -153,6 +153,18 @@ The sidebar system consists of modular components that work together through Rea
 └─────────────────────────────────────────────────────────────┘
 \`\`\`
 
+## 🚀 Installation
+
+\`\`\`bash
+npm install @sume/ui
+# or
+yarn add @sume/ui
+# or
+pnpm add @sume/ui
+\`\`\`
+
+
+
 ## 🔧 Implementation Examples
 
 ### Basic Setup
