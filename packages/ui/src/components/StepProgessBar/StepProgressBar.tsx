@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -6,7 +7,7 @@ interface Step {
   step: number;
 }
 
-interface StepperProps {
+export interface StepperProps {
   steps: Step[];
   activeStep: number;
   color?: "blue" | "green" | "indigo" | "red" | "yellow";

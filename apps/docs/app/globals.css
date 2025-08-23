@@ -1,27 +1,11 @@
 @import "tailwindcss";
-@import "@repo/tailwind-config";
-@import "@repo/ui/styles.css";
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+/* Tell Tailwind where to find class names in monorepo */
+@source "./../../../apps/**/*.{js,ts,jsx,tsx}";
+@source "./../../../packages/**/*.{js,ts,jsx,tsx}";
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
+/* If you still have shared config (like theme), include it */
+@config "./../../../packages/tailwind-config/tailwind.config.js";
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+/* Import your UI package styles */
+@import '@sume/ui/styles.css';

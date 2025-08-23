@@ -4,7 +4,7 @@ import cn from '../../lib/cn';
 import { DotsHorizontalIcon, DotsVerticalIcon } from '@radix-ui/react-icons';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 
-interface KeybabMenuProps {
+export interface KeybabMenuProps {
   variant?: 'vertical' | 'horizontal' | 'custom';
   children?: React.ReactNode;
   action?: { 

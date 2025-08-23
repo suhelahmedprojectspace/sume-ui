@@ -1,50 +1,161 @@
 {
-  "name": "@astra/ui",
-  "version": "1.0.0",
-  "description": "Add components to your apps",
+  "name": "@sume/ui",
+  "version": "1.0.1",
+  "description": "Modern React UI Component Library",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "sideEffects": [
-    "**/*.css"
-  ],
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
     "./components/*": {
       "import": "./dist/components/*/index.js",
       "require": "./dist/components/*/index.js",
       "types": "./dist/components/*/index.d.ts"
     },
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.umd.js"
+    "./components/accordion": {
+      "import": "./dist/components/Accordion/index.js",
+      "require": "./dist/components/Accordion/index.js",
+      "types": "./dist/components/Accordion/index.d.ts"
     },
-    "./styles.css": "./dist/index.css"
+    "./components/avatar": {
+      "import": "./dist/components/Avatar/index.js",
+      "require": "./dist/components/Avatar/index.js",
+      "types": "./dist/components/Avatar/index.d.ts"
+    },
+    "./components/badge": {
+      "import": "./dist/components/Badge/index.js",
+      "require": "./dist/components/Badge/index.js",
+      "types": "./dist/components/Badge/index.d.ts"
+    },
+    "./components/button": {
+      "import": "./dist/components/Button/index.js",
+      "require": "./dist/components/Button/index.js",
+      "types": "./dist/components/Button/index.d.ts"
+    },
+    "./components/card": {
+      "import": "./dist/components/Card/index.js",
+      "require": "./dist/components/Card/index.js",
+      "types": "./dist/components/Card/index.d.ts"
+    },
+    "./components/carousel": {
+      "import": "./dist/components/Carousel/index.js",
+      "require": "./dist/components/Carousel/index.js",
+      "types": "./dist/components/Carousel/index.d.ts"
+    },
+    "./components/codeblock": {
+      "import": "./dist/components/CodeBlock/index.js",
+      "require": "./dist/components/CodeBlock/index.js",
+      "types": "./dist/components/CodeBlock/index.d.ts"
+    },
+    "./components/dropdown": {
+      "import": "./dist/components/Dropdown/index.js",
+      "require": "./dist/components/Dropdown/index.js",
+      "types": "./dist/components/Dropdown/index.d.ts"
+    },
+    "./components/fileupload": {
+      "import": "./dist/components/FileUpload/index.js",
+      "require": "./dist/components/FileUpload/index.js",
+      "types": "./dist/components/FileUpload/index.d.ts"
+    },
+    "./components/input": {
+      "import": "./dist/components/Input/index.js",
+      "require": "./dist/components/Input/index.js",
+      "types": "./dist/components/Input/index.d.ts"
+    },
+    "./components/keybabmenu": {
+      "import": "./dist/components/KeybabMenu/index.js",
+      "require": "./dist/components/KeybabMenu/index.js",
+      "types": "./dist/components/KeybabMenu/index.d.ts"
+    },
+    "./components/modal": {
+      "import": "./dist/components/Modal/index.js",
+      "require": "./dist/components/Modal/index.js",
+      "types": "./dist/components/Modal/index.d.ts"
+    },
+    "./components/navbar": {
+      "import": "./dist/components/Navbar/index.js",
+      "require": "./dist/components/Navbar/index.js",
+      "types": "./dist/components/Navbar/index.d.ts"
+    },
+    "./components/progressbar": {
+      "import": "./dist/components/ProgessBar/index.js",
+      "require": "./dist/components/ProgessBar/index.js",
+      "types": "./dist/components/ProgessBar/index.d.ts"
+    },
+    "./components/sidebar": {
+      "import": "./dist/components/Sidebar/index.js",
+      "require": "./dist/components/Sidebar/index.js",
+      "types": "./dist/components/Sidebar/index.d.ts"
+    },
+    "./components/stepprogressbar": {
+      "import": "./dist/components/StepProgessBar/index.js",
+      "require": "./dist/components/StepProgessBar/index.js",
+      "types": "./dist/components/StepProgessBar/index.d.ts"
+    },
+    "./components/textarea": {
+      "import": "./dist/components/TextArea/index.js",
+      "require": "./dist/components/TextArea/index.js",
+      "types": "./dist/components/TextArea/index.d.ts"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./package.json": "./package.json"
   },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suhelahmedprojectspace/astra-ui.git"
+  },
+  "homepage": "https://github.com/suhelahmedprojectspace/astra-ui.git",
+  "keywords": [
+    "react",
+    "ui",
+    "components",
+    "typescript",
+    "tailwindcss",
+    "design-system",
+    "component-library"
+  ],
+  "author": "Suhel Ahmed",
   "license": "MIT",
   "scripts": {
-    "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
+    "build": "npm run build:css && tsc",
     "build:components": "tsc",
+    "build:css": "tailwindcss -i src/styles.css -o dist/styles.css --minify",
+    "build:declarations": "tsc --emitDeclarationOnly",
     "check-types": "tsc --noEmit",
-    "dev:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
     "dev:components": "tsc --watch",
-    "lint": "eslint src --max-warnings 0"
+    "lint": "eslint src --max-warnings 0",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "react": "^19"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/tailwind-config": "*",
     "@repo/typescript-config": "*",
-    "@tailwindcss/cli": "^4.1.5",
+    "@tailwindcss/cli": "^4.1.12",
+    "@tailwindcss/postcss": "^4.1.12",
     "@types/prismjs": "^1.26.5",
     "@types/react": "^19.1.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "autoprefixer": "^10.4.21",
     "eslint": "^9.30.0",
-    "tailwindcss": "^4.1.5",
-    "typescript": "5.8.2"
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.12",
+    "typescript": "5.8.2",
+    "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.11",
@@ -52,6 +163,7 @@
     "@radix-ui/react-navigation-menu": "^1.2.13",
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.0",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "focus-trap-react": "^11.0.4",

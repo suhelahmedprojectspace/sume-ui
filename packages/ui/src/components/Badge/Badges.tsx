@@ -2,10 +2,10 @@
 import React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import cn from '../../lib/cn';
-import { X, Check, AlertCircle, Info, Loader2, Sparkles } from 'lucide-react';
+import { X, Loader2 } from 'lucide-react';
 
 const badgeVariants = cva(
-  'inline-flex items-center rounded-full border font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+  'inline-flex justify-center items-center border font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
   {
     variants: {
       variant: {
@@ -19,9 +19,9 @@ const badgeVariants = cva(
         premium: 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 border-0 text-white',
       },
       size: {
-        sm: 'text-xs px-2 py-0.5',
-        md: 'text-sm px-3 py-1',
-        lg: 'text-base px-4 py-1.5',
+        sm: 'text-xs px-2 py-0.5 min-w-[56px]',
+        md: 'text-sm px-3 py-1 min-w-[72px]',
+        lg: 'text-base px-4 py-1.5 min-w-[96px]',
       },
       shape: {
         rounded: 'rounded-full',
@@ -94,23 +94,23 @@ const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
         return <Loader2 className={cn(iconVariants({ size }), 'animate-spin')} />;
       }
 
-      if (icon === true) {
-        switch (variant) {
-          case 'success':
-            return <Check className={iconVariants({ size })} />;
-          case 'destructive':
-          case 'warning':
-            return <AlertCircle className={iconVariants({ size })} />;
-          case 'info':
-            return <Info className={iconVariants({ size })} />;
-          case 'premium':
-            return <Sparkles className={iconVariants({ size })} />;
-          default:
-            return null;
-        }
-      }
+      // if (icon === true) {
+      //   switch (variant) {
+      //     case 'success':
+      //       return <Check className={iconVariants({ size })} />;
+      //     case 'destructive':
+      //     case 'warning':
+      //       return <AlertCircle className={iconVariants({ size })} />;
+      //     case 'info':
+      //       return <Info className={iconVariants({ size })} />;
+      //     case 'premium':
+      //       return <Sparkles className={iconVariants({ size })} />;
+      //     default:
+      //       return null;
+      //   }
+      // }
 
-      return icon;
+       return icon;
     };
 
     return (
@@ -119,7 +119,7 @@ const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
         className={cn(
           badgeVariants({ variant, size, shape, effect, className }),
           pulse && 'animate-pulse',
-          interactive && 'cursor-pointer hover:shadow-md transition-all',
+          interactive && 'cursor-pointer hover:shadow-md transition-all flex',
           className
         )}
         {...props}
@@ -130,7 +130,10 @@ const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
           </span>
         )}
 
-        {children}
+       <div>
+          {children}
+       </div> 
+        
 
         {closable ? (
           <button

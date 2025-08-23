@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Modal, Button } from '@astra/ui'
+import { Modal } from '@sume/ui/components/Modal'
+import { Button } from '@sume/ui/components/Button'
 
 const ModalExamplePage = () => {
   const [isOpen, setIsOpen] = useState(false)
