@@ -14,20 +14,19 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'AstraUI',
+      name: 'SumeUI',
       formats: ['es', 'umd'],
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
       external: ['react', 'react-dom'],
       output: {
+         preserveModules: true,
+      preserveModulesRoot: "src",
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM'
         },
-        // Add this for proper subpath exports
-        preserveModules: true,
-        preserveModulesRoot: 'src'
       }
     }
   }

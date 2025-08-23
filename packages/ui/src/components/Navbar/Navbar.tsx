@@ -1,353 +1,350 @@
 "use client";
-import React, { ReactNode, useState } from "react";
-import Link from "next/link";
-import ReactDOM from "react-dom";
-import cn from "../../lib/cn";
-import { HamburgerIcon } from "./Hamburger";
-import { ChevronDown } from "lucide-react";
+
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import cn from "../../lib/cn";
 
-type NavbarLink = {
+type NavType = "link" | "dropdown";
+
+export interface NavItem {
   label: string;
-  href?: string;
-  active?: boolean;
-  children?: NavbarLink[];
-};
-
-interface NavbarProps {
-  links: NavbarLink[];
-  logo?: ReactNode | string;
-  className?: string;
-  children?: ReactNode;
+  href: string;
+  type?: NavType;
+  items?: Array<{ label: string; href: string }>;
 }
 
-const menuVariants = {
-  open: {
-    x: 0,
-    transition: {
-      type: "spring" as const,
-      stiffness: 300,
-      damping: 30,
-      mass: 0.5,
-      when: "beforeChildren"
+interface NavbarProps {
+  logo: React.ReactNode;
+  menuItems: NavItem[];
+  children?: React.ReactNode; // right-side content (e.g., button, search)
+  sticky?: boolean;
+  className?: string;
+}
+
+const prefersReducedMotion =
+  typeof window !== "undefined" &&
+  window.matchMedia &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+export const Navbar: React.FC<NavbarProps> = ({
+  logo,
+  menuItems,
+  children,
+  sticky = true,
+  className,
+}) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<number | null>(null);
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+
+  // Track scroll to add shadow
+  useEffect(() => {
+    const onScroll = () => setHasScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+
+  useEffect(() => {
+    function onDocClick(e: MouseEvent) {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpenDropdown(null);
+      }
     }
-  },
-  closed: {
-    x: "100%",
-    transition: {
-      type: "spring"as const,
-      stiffness: 300,
-      damping: 30,
-      mass: 0.5,
-      when: "afterChildren"
+    document.addEventListener("mousedown", onDocClick);
+    return () => document.removeEventListener("mousedown", onDocClick);
+  }, []);
+
+  
+  const handleDropdownKey = (e: React.KeyboardEvent, index: number) => {
+    if (e.key === "Escape") {
+      setOpenDropdown(null);
+      (e.currentTarget as HTMLElement).blur();
     }
-  }
-};
-
-const dropdownVariants = {
-  open: {
-    opacity: 1,
-    height: "auto",
-    transition: {
-      type: "spring" as const,
-      stiffness: 300,
-      damping: 30,
-      mass: 0.5
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setOpenDropdown((prev) => (prev === index ? null : index));
     }
-  },
-  closed: {
-    opacity: 0,
-    height: 0,
-    transition: {
-      type: "spring" as const,
-      stiffness: 300,
-      damping: 30,
-      mass: 0.5
+    if (e.key === "ArrowDown") {
+      // focus first item in dropdown if available
+      const menu = document.getElementById(`menu-${index}`);
+      if (menu) {
+        const first = menu.querySelector<HTMLElement>('a[role="menuitem"]');
+        first?.focus();
+      }
     }
-  }
-};
+  };
 
-const backdropVariants = {
-  open: {
-    opacity: 1,
-    transition: {
-      duration: 0.3,
-      ease: "easeOut" as const
-    }
-  },
-  closed: {
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-      ease: "easeIn" as const
-    }
-  }
-};
+  const closeMobileMenu = () => {
+    setIsMenuOpen(false);
+    setOpenDropdown(null);
+  };
 
-const MobileMenuPortal = ({ children }: { children: React.ReactNode }) => {
-  if (typeof window === "undefined") return null;
-  return ReactDOM.createPortal(children, document.body);
-};
+  return (
+    <header
+      ref={navRef}
+      className={cn(
+        "w-full bg-white dark:bg-gray-900 transition-shadow duration-300 z-50",
+        sticky && "sticky top-0",
+        hasScrolled && "shadow-md",
+        className
+      )}
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          {/* Left: Logo */}
+          <div className="flex flex-shrink-0 items-center">{logo}</div>
 
-export const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(
-  ({ className, logo, links, children, ...props }, ref) => {
-    const [mobileOpen, setMobileOpen] = useState(false);
-    const [dropdownOpenIndex, setDropdownOpenIndex] = useState<number | null>(null);
-    const [mobileDropdownOpen, setMobileDropdownOpen] = useState<Record<number, boolean>>({});
-
-    const toggleMobileDropdown = (index: number) => {
-      setMobileDropdownOpen((prev) => ({
-        ...prev,
-        [index]: !prev[index],
-      }));
-    };
-
-    return (
-      <>
-        <AnimatePresence>
-          {mobileOpen && (
-            <MobileMenuPortal>
-              <motion.div
-                variants={backdropVariants}
-                initial="closed"
-                animate="open"
-                exit="closed"
-                className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
-                onClick={() => setMobileOpen(false)}
-                aria-hidden="true"
-              />
-            </MobileMenuPortal>
-          )}
-        </AnimatePresence>
-
-        <header
-          ref={ref}
-          className={cn("fixed top-0 left-0 right-0 bg-white border-b border-gray-200  p-4", className)}
-          {...props}
-        >
-          <div className="flex items-center justify-between max-w-7xl mx-auto">
-            {/* Logo */}
-            <div>
-              {typeof logo === "string" ? (
-                <img src={logo} alt="Logo" className="h-5 w-auto object-contain" />
-              ) : (
-                logo
-              )}
-            </div>
-
-            {/* Desktop Nav */}
-            <nav className="hidden md:flex md:items-center gap-6" role="menubar" aria-label="Primary navigation">
-              {links.map((link, idx) => {
-                if (link.children && link.children.length > 0) {
-                  return (
-                    <div
-                      key={idx}
-                      className="relative"
-                      onMouseEnter={() => setDropdownOpenIndex(idx)}
-                      onMouseLeave={() => setDropdownOpenIndex(null)}
-                      tabIndex={0}
-                      onFocus={() => setDropdownOpenIndex(idx)}
-                      onBlur={() => setDropdownOpenIndex(null)}
-                      role="presentation"
-                    >
-                      <button
-                        aria-haspopup="true"
-                        aria-expanded={dropdownOpenIndex === idx}
-                        className={cn(
-                          "relative text-sm font-medium text-gray-700 flex items-center gap-1 rounded-md outline-none px-1 py-1 hover:text-primary-600 focus-visible:ring-2 focus-visible:ring-primary-600 transition-colors duration-300 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-primary-600 before:transition-all before:duration-300",
-                          dropdownOpenIndex === idx && "before:w-full"
-                        )}
-                        type="button"
-                        role="menuitem"
-                      >
-                        {link.label}
-                        <ChevronDown
-                          className={cn(
-                            "w-4 h-4 transition-transform duration-300",
-                            dropdownOpenIndex === idx ? "rotate-180 text-primary-600" : "text-gray-500"
-                          )}
-                          aria-hidden="true"
-                        />
-                      </button>
-                      
-                      <AnimatePresence>
-                        {dropdownOpenIndex === idx && (
-                          <motion.div
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.2 }}
-                            className={cn(
-                              "absolute right-0 bg-white rounded-lg py-2 shadow-lg mt-2 min-w-[12rem] max-w-[calc(90vw-2rem)] overflow-x-auto z-40",
-                            )}
-                            role="menu"
-                            aria-label={`${link.label} submenu`}
-                          >
-                            {link.children.map((child) => (
-                              <Link
-                                key={child.label}
-                                href={child.href || "#"}
-                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-600 rounded transition-colors duration-200 focus-visible:outline-none focus-visible:bg-gray-200"
-                                role="menuitem"
-                              >
-                                {child.label}
-                              </Link>
-                            ))}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  );
-                }
+          {/* Desktop Navigation */}
+          <nav
+            className={cn(
+              "hidden md:flex items-center",
+              // When no children, push nav to the right edge
+              !children && "ml-auto",
+              // When children exist, keep some gap and allow space for right-side area
+              children && "ml-8"
+            )}
+            aria-label="Primary"
+          >
+            <ul className="flex items-center gap-3">
+              {menuItems.map((item, index) => {
+                const isDrop = item.type === "dropdown" && item.items?.length;
                 return (
-                  <Link
-                    key={link.label}
-                    href={link.href || "#"}
-                    aria-current={link.active ? "page" : undefined}
-                    className={cn(
-                      "relative text-sm font-medium text-gray-700 rounded-md outline-none px-1 py-1 hover:text-primary-600 focus-visible:ring-2 focus-visible:ring-primary-600 transition-colors duration-300 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-primary-600 before:transition-all before:duration-300",
-                      link.active && "before:w-full",
-                      !link.active && "hover:before:w-full"
+                  <li key={item.label} className="relative">
+                    {isDrop ? (
+                      <>
+                        <button
+                          type="button"
+                          className="flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition-colors"
+                          aria-haspopup="menu"
+                          aria-expanded={openDropdown === index}
+                          aria-controls={`menu-${index}`}
+                          onClick={() =>
+                            setOpenDropdown((prev) =>
+                              prev === index ? null : index
+                            )
+                          }
+                          onKeyDown={(e) => handleDropdownKey(e, index)}
+                          onMouseEnter={() => setOpenDropdown(index)}
+                          onMouseLeave={() => setOpenDropdown(null)}
+                        >
+                          <span>{item.label}</span>
+                          <svg
+                            className="ml-1 h-4 w-4"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            aria-hidden="true"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </button>
+
+                        <AnimatePresence>
+                          {openDropdown === index && (
+                            <motion.div
+                              initial={
+                                prefersReducedMotion
+                                  ? { opacity: 1, y: 0 }
+                                  : { opacity: 0, y: -8 }
+                              }
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={
+                                prefersReducedMotion
+                                  ? { opacity: 1, y: 0 }
+                                  : { opacity: 0, y: -8 }
+                              }
+                              transition={{ duration: 0.16 }}
+                              onMouseEnter={() => setOpenDropdown(index)}
+                              onMouseLeave={() => setOpenDropdown(null)}
+                              className="absolute left-0 mt-2 w-56 rounded-md border border-black/5 bg-white dark:bg-gray-800 shadow-lg focus:outline-none"
+                              role="menu"
+                              id={`menu-${index}`}
+                              aria-label={`${item.label} submenu`}
+                            >
+                              <ul className="py-1">
+                                {item.items!.map((sub) => (
+                                  <li key={sub.label}>
+                                    <a
+                                      href={sub.href}
+                                      role="menuitem"
+                                      className="block px-4 py-2 text-sm hover:bg-gray-100 hover:text-zinc-600 dark:hover:bg-gray-700 focus:bg-gray-100 dark:focus:bg-gray-700 focus:outline-none transition-colors"
+                                      onClick={closeMobileMenu}
+                                    >
+                                      {sub.label}
+                                    </a>
+                                  </li>
+                                ))}
+                              </ul>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </>
+                    ) : (
+                      <a
+                        href={item.href}
+                        className="inline-block px-3 py-2 rounded-md text-sm font-medium hover:text-zinc-600 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition-colors"
+                      >
+                        {item.label}
+                      </a>
                     )}
-                  >
-                    {link.label}
-                  </Link>
+                  </li>
                 );
               })}
-             {children}   
-            </nav>
+            </ul>
+          </nav>
 
-            {/* Hamburger for mobile */}
-            <div className="md:hidden relative z-50">
-              <HamburgerIcon
-                isOpen={mobileOpen}
-                onClick={() => setMobileOpen((open) => !open)}
-                size={24}
-                color="#444"
-              />
-          
-            </div>
+          {/* Right-side area (children) */}
+          <div className="hidden md:flex items-center gap-3">
+            {children}
           </div>
-        </header>
 
-        {/* Mobile menu drawer */}
-        <AnimatePresence>
-          {mobileOpen && (
-            <MobileMenuPortal>
-              <motion.nav
-                variants={menuVariants}
-                initial="closed"
-                animate="open"
-                exit="closed"
-                className="fixed top-0 right-0 h-screen z-50 bg-white shadow-lg p-6 overflow-y-auto"
-                style={{ width: "75vw", maxWidth: 320, minWidth: 240 }}
-                aria-label="Mobile navigation"
-              >
-                {links.map((link, idx) => {
-                  if (link.children && link.children.length > 0) {
-                    const isOpen = mobileDropdownOpen[idx] || false;
-                    return (
-                      <div key={link.label} className="mb-6">
+          {/* Mobile menu toggle */}
+          <button
+            className="md:hidden inline-flex items-center justify-center p-2 rounded-md hover:text-zinc-600 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+            aria-expanded={isMenuOpen}
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setIsMenuOpen((s) => !s)}
+          >
+            <span className="sr-only">
+              {isMenuOpen ? "Close menu" : "Open menu"}
+            </span>
+            <motion.svg
+              className="h-6 w-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              animate={isMenuOpen ? "open" : "closed"}
+              variants={{
+                open: { rotate: 90 },
+                closed: { rotate: 0 },
+              }}
+            >
+              {isMenuOpen ? (
+                <path d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </motion.svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.nav
+            initial={
+              prefersReducedMotion
+                ? { opacity: 1, height: "auto" }
+                : { opacity: 0, height: 0 }
+            }
+            animate={{ opacity: 1, height: "auto" }}
+            exit={prefersReducedMotion ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
+            transition={{ duration: 0.22 }}
+            className="md:hidden border-t border-black/5 dark:border-white/10"
+            aria-label="Mobile primary"
+          >
+            <ul className="px-2 pt-2 pb-3 space-y-2 sm:px-3 z-50">
+              {menuItems.map((item, index) => {
+                const isDrop = item.type === "dropdown" && item.items?.length;
+                const isOpen = openDropdown === index;
+                return (
+                  <li key={item.label} className="mb-1 last:mb-0">
+                    {isDrop ? (
+                      <>
                         <button
-                          onClick={() => toggleMobileDropdown(idx)}
+                          className="w-full flex items-center justify-between px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition-colors"
                           aria-expanded={isOpen}
-                          aria-controls={`mobile-submenu-${idx}`}
-                          type="button"
-                          className="w-full flex justify-between items-center text-base font-medium p-2 rounded hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 transition"
+                          aria-controls={`mobile-menu-${index}`}
+                          onClick={() =>
+                            setOpenDropdown((prev) =>
+                              prev === index ? null : index
+                            )
+                          }
                         >
-                          {link.label}
-                          <ChevronDown
-                            className={cn(
-                              "w-5 h-5 transition-transform duration-300",
-                              isOpen ? "rotate-180 text-primary-600" : "text-gray-500"
-                            )}
+                          <span>{item.label}</span>
+                          <svg
+                            className={`h-5 w-5 transition-transform ${
+                              isOpen ? "rotate-180" : ""
+                            }`}
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
                             aria-hidden="true"
-                          />
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
                         </button>
-                        <AnimatePresence>
+                        <AnimatePresence initial={false}>
                           {isOpen && (
                             <motion.div
-                              id={`mobile-submenu-${idx}`}
-                              className="pl-4 mt-2 flex flex-col gap-2"
-                              variants={dropdownVariants}
-                              initial="closed"
-                              animate="open"
-                              exit="closed"
-                              role="menu"
+                              id={`mobile-menu-${index}`}
+                              initial={
+                                prefersReducedMotion
+                                  ? { opacity: 1, height: "auto" }
+                                  : { opacity: 0, height: 0 }
+                              }
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={
+                                prefersReducedMotion
+                                  ? { opacity: 1, height: "auto" }
+                                  : { opacity: 0, height: 0 }
+                              }
+                              transition={{ duration: 0.2 }}
+                              className="pl-4 space-y-2"
                             >
-                              {link.children.map((child) => (
-                                <Link
-                                  key={child.label}
-                                  href={child.href || "#"}
-                                  className="text-base font-normal p-2 rounded hover:bg-gray-100 focus-visible:outline-none focus-visible:bg-gray-200 transition"
+                              {item.items!.map((sub) => (
+                                <a
+                                  key={sub.label}
+                                  href={sub.href}
+                                  className="block px-3 py-2 rounded-md text-base font-medium hover:text-zinc-600 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition-colors"
+                                  onClick={closeMobileMenu}
                                   role="menuitem"
-                                  onClick={() => setMobileOpen(false)}
                                 >
-                                  {child.label}
-                                </Link>
+                                  {sub.label}
+                                </a>
                               ))}
                             </motion.div>
                           )}
                         </AnimatePresence>
-                      </div>
-                    );
-                  }
-                  return (
-                    <Link
-                      key={link.label}
-                      href={link.href || "#"}
-                      className="text-base font-medium p-4 block hover:underline"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      {link.label}
-                    </Link>
-                  );
-                })}
-               {children}
-              </motion.nav>
-            </MobileMenuPortal>
-          )}
-        </AnimatePresence>
+                      </>
+                    ) : (
+                      <a
+                        href={item.href}
+                        className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 hover:text-zinc-600 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition-colors"
+                        onClick={closeMobileMenu}
+                      >
+                        {item.label}
+                      </a>
+                    )}
+                  </li>
+                );
+              })}
 
-        <style>{`
-          @keyframes fade-slide-down {
-            0% {
-              opacity: 0;
-              transform: translateY(-0.25rem);
-            }
-            100% {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-
-          .animate-fade-slide-down {
-            animation: fade-slide-down 0.3s ease forwards;
-          }
-
-          /* primary color example */
-          .text-primary-600 {
-            color: #4f46e5;
-          }
-          .hover\\:text-primary-600:hover {
-            color: #4f46e5;
-          }
-          .focus-visible\\:ring-primary-600:focus-visible {
-            --tw-ring-color: #4f46e5;
-          }
-          .focus-visible\\:bg-gray-200:focus-visible {
-            background-color: #e5e7eb;
-          }
-          .hover\\:bg-gray-100:hover {
-            background-color: #f3f4f6;
-          }
-          .focus-visible\\:outline-none:focus-visible {
-            outline: none;
-          }
-        `}</style>
-      </>
-    );
-  }
-);
-
-Navbar.displayName = "Navbar";
+              {/* Optional mobile children */}
+              {children && (
+                <li className="pt-2 border-t border-black/5 dark:border-white/10">
+                  <div className="flex items-center gap-2 px-3 py-2">
+                    {children}
+                  </div>
+                </li>
+              )}
+            </ul>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+    </header>
+  );
+};

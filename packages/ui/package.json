@@ -1,5 +1,5 @@
 {
-  "name": "@astra/ui",
+  "name": "@sume/ui",
   "version": "1.0.0",
   "description": "Add components to your apps",
   "main": "./dist/index.js",
@@ -11,40 +11,47 @@
     "dist"
   ],
   "exports": {
-    "./components/*": {
-      "import": "./dist/components/*/index.js",
-      "require": "./dist/components/*/index.js",
-      "types": "./dist/components/*/index.d.ts"
-    },
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.umd.js"
-    },
-    "./styles.css": "./dist/index.css"
+  ".": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.js",
+    "types": "./dist/index.d.ts"
   },
+  "./components/*": {
+    "import": "./dist/components/*/index.js",
+    "require": "./dist/components/*/index.js",
+    "types": "./dist/components/*/index.d.ts"
+  },
+  "./styles.css": "./dist/styles.css"
+}
+,
   "license": "MIT",
-  "scripts": {
-    "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
-    "build:components": "tsc",
+   "scripts": {
+    "build": "npm run build:css && tsc",
+    "build:components": "tsc", 
+    "build:css": "tailwindcss -i src/styles.css -o dist/styles.css --minify",
     "check-types": "tsc --noEmit",
-    "dev:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
     "dev:components": "tsc --watch",
     "lint": "eslint src --max-warnings 0"
   },
   "peerDependencies": {
-    "react": "^19"
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/tailwind-config": "*",
     "@repo/typescript-config": "*",
-    "@tailwindcss/cli": "^4.1.5",
+    "@tailwindcss/cli": "^4.1.12",
+    "@tailwindcss/postcss": "^4.1.12",
     "@types/prismjs": "^1.26.5",
     "@types/react": "^19.1.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "autoprefixer": "^10.4.21",
     "eslint": "^9.30.0",
-    "tailwindcss": "^4.1.5",
-    "typescript": "5.8.2"
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.12",
+    "typescript": "5.8.2",
+    "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.11",
@@ -52,6 +59,7 @@
     "@radix-ui/react-navigation-menu": "^1.2.13",
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.0",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "focus-trap-react": "^11.0.4",
@@ -63,4 +71,6 @@
     "tailwind-merge": "^3.3.1",
     "tw-animate-css": "^1.3.5"
   }
+
+
 }

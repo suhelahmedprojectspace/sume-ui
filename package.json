@@ -2,15 +2,27 @@
   "name": "with-tailwind",
   "private": true,
   "scripts": {
-    "build": "turbo run build",
+     "build": "turbo run build --filter=!storybook",
+    "build:all": "npm run build && npm run build:storybook", 
+    "build:storybook": "cd apps/storybook && npm run build",
     "dev": "turbo run dev",
+    "storybook": "cd apps/storybook && npm run storybook",
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
+  "dependencies": {
+    "next": "^15.4.6",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.1.12",
+    "@tailwindcss/postcss": "^4.1.12",
+    "postcss": "^8.5.6",
     "prettier": "^3.6.0",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "tailwindcss": "^4.1.12",
     "turbo": "^2.5.4"
   },
   "engines": {

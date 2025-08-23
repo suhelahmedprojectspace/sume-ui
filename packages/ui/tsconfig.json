@@ -14,10 +14,11 @@
     "target": "ESNext",
      "baseUrl": ".",
      "paths": {
-       "@astra/ui": ["./src/index.ts"],
-      "@astra/ui/*": ["./src/index.ts"]
+     "@sume/ui": ["../ui/src/index.ts"],
+      "@sume/ui/*": ["../ui/src/*"],
+      "@sume/ui/components/*": ["../ui/src/components/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "**/*.d.ts"],
   "exclude": ["dist", "build", "node_modules"]
 }

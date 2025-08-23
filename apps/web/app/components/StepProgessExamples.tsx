@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Stepper } from '@astra/ui/components/StepProgessBar';
+import { Stepper } from '@sume/ui/components/StepProgessBar';
 
 const steps = [
   { label: "Details", step: 1, completed: false, isValid: false },

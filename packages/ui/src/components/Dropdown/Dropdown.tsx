@@ -21,7 +21,7 @@ interface DropdownProps {
   className?: string;
   searchable?: boolean;
   multiSelect?: boolean;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" |"xl";
   variant?: "outline" | "filled" | "ghost";
 }
 
@@ -140,9 +140,10 @@ const DropDown = React.forwardRef<HTMLDivElement, DropdownProps>(
 
     // Size classes
     const sizeClasses = {
-      sm: "text-sm py-1.5 px-3",
-      md: "text-base py-2 px-4",
-      lg: "text-lg py-2.5 px-5",
+      sm: "text-sm py-1.5 px-3 w-32",
+      md: "text-base py-2 px-4 w-48",
+      lg: "text-lg py-2 px-4 w-64",
+      xl:"py-2 px-4 w-80"
     };
 
     // Variant classes
