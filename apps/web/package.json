@@ -4,9 +4,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-   "dev": "next dev --port 3001 --turbopack",
-    "build": "npm run build:deps && next build",
-    "build:deps": "cd ../../packages/ui && npm run build",
+    "dev": "next dev --port 3001 --turbopack",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint --max-warnings 0",
     "check-types": "tsc --noEmit"
