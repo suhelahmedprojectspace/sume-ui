@@ -449,7 +449,8 @@ const ComponentShowcase = () => {
         >
           <div className="inline-flex flex-col sm:flex-row gap-6 items-center">
             <Button 
-              size="lg" 
+              size="lg"
+               onClick={() => window.open('https://sume-ui-storybook-ohcn.vercel.app/?path=/docs/introduction--docs', '_blank')}
               className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-300 shadow-2xl px-8 py-4 text-lg font-semibold"
             >
               <Eye className="w-5 h-5 mr-2" />
@@ -457,6 +458,7 @@ const ComponentShowcase = () => {
             </Button>
             <Button 
               size="lg" 
+              onClick={() => window.open('https://sume-ui-storybook-ohcn.vercel.app/?path=/docs/introduction--docs', '_blank')}
               variant="outline" 
               className="border-slate-500 text-gray-300 hover:bg-slate-700 hover:border-slate-400 transform hover:scale-105 transition-all duration-300 px-8 py-4 text-lg font-semibold"
             >

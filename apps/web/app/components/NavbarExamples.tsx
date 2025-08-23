@@ -25,7 +25,7 @@ const NavbarExamples = () => {
     { label: "Home", href: "#home" },
     { label: "Features", href: "#features" },
     { label: "Components", href: "#components" },
-    { label: "Docs", href: "/docs" },
+    { label: "Docs", href: "https://github.com/suhelahmedprojectspace/sume-ui.git" },
     { label: "Showcase", href: "#showcase" },
   ];
 

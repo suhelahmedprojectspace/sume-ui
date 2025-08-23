@@ -43,7 +43,7 @@ const Footer = () => {
   const footerLinks: Record<string, FooterLink[]> = {
     product: [
       { name: 'Components', href: '#components' },
-      { name: 'Documentation', href: '/docs' },
+      { name: 'Documentation', href: 'https://sume-ui-storybook-ohcn.vercel.app/?path=/docs/introduction--docs' },
       { name: 'Showcase', href: '#showcase' },
     ],
     resources: [

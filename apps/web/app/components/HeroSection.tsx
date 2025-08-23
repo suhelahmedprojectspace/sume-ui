@@ -194,7 +194,7 @@ export default function HeroSection() {
           <motion.a
             whileHover={{ scale: 1.04, y: -2 }}
             whileTap={{ scale: 0.96 }}
-            href="#get-started"
+            href="https://sume-ui-storybook-ohcn.vercel.app/?path=/docs/introduction--docs"
             className="px-8 py-4 bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 text-white font-bold rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all group"
           >
             Get Started
@@ -203,7 +203,7 @@ export default function HeroSection() {
           <motion.a
             whileHover={{ y: -1, borderColor: "#60a5fa" }}
             whileTap={{ scale: 0.97 }}
-            href="https://github.com"
+            href="https://github.com/suhelahmedprojectspace/sume-ui.git"
             target="_blank"
             rel="noopener"
             className="px-8 py-4 bg-transparent ring-1 ring-slate-800 hover:ring-blue-400 text-white rounded-xl font-medium flex items-center gap-2 transition-all duration-200"

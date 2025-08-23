@@ -21,6 +21,7 @@ const CTASection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button 
               size="lg" 
+              onClick={() => window.open('https://sume-ui-storybook-ohcn.vercel.app/?path=/docs/introduction--docs', '_blank')}
               className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
             >
               Get Started Now
@@ -29,6 +30,7 @@ const CTASection = () => {
               size="lg" 
               variant="outline" 
               className="border-white text-gray-900 "
+              onClick={() => window.open('https://sume-ui-storybook-ohcn.vercel.app/?path=/docs/introduction--docs', '_blank')}
             >
               View Documentation
             </Button>
