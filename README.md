@@ -4,13 +4,15 @@ _**Sumi ui is a sleek, modern, and customizable component library built with Rea
 
 
 ## 🚀 Features
-_⚡ Blazing Fast: Lightweight and performance-optimized.
-🎨 Themeable: Easily customizable with Tailwind CSS and CSS variables.
-🧩 Modular Components: Use only what you need.
-♿ Accessible: Follows WAI-ARIA standards.
-💅 Beautiful by Default: Minimal and elegant design system.
-📦 Tree-shakable: Optimized for modern bundlers.
-📦 Installationh_
+
+⚡ Blazing Fast: Lightweight and performance-optimized.</br>
+
+🎨 Themeable: Easily customizable with Tailwind CSS and CSS variables.</br>
+🧩 Modular Components: Use only what you need.</br>
+♿ Accessible: Follows WAI-ARIA standards.</br>
+💅 Beautiful by Default: Minimal and elegant design system.</br>
+📦 Tree-shakable: Optimized for modern bundlers.</br>
+
 
 ```bash
 npm install @sume/ui
@@ -58,25 +60,30 @@ export default App;
 ```
 
 ## 🎯 Available Components
- **Accordion** - Collapsible content sections
- **Avatar** - User profile images and initials
- **Badge** - Status and category indicators
-**Button** - Interactive buttons with variants
-**Card** - Content containers
-**Carousel** - Image and content sliders
-**CodeBlock**  - Syntax-highlighted code display
-**Dropdown** - Contextual menus
-**FileUpload** - File selection and upload
-**Input** - Text input fields
-**KeybabMenu** - Three-dot action menus
-**Modal** - Dialog overlays
-**Navbar**  - Navigation headers
-**ProgressBar** - Loading and progress indicators
-**Sidebar** - Navigation sidebars
-**StepProgressBar** - Multi-step progress indicators
-**TextArea** - Multi-line text input
+ **Accordion** - Collapsible content sections </br>
+ **Avatar** - User profile images and initials </br>
+ **Badge** - Status and category indicators </br>
+**Button** - Interactive buttons with variants </br>
+**Card** - Content containers </br>
+**Carousel** - Image and content sliders </br>
+**CodeBlock**  - Syntax-highlighted code display </br>
+**Dropdown** - Contextual menus </br>
+**FileUpload** - File selection and upload </br>
+**Input** - Text input fields </br>
+**KeybabMenu** - Three-dot action menus </br>
+**Modal** - Dialog overlays </br>
+**Navbar**  - Navigation headers </br>
+**ProgressBar** - Loading and progress indicators </br>
+**Sidebar** - Navigation sidebars </br>
+**StepProgressBar** - Multi-step progress indicators </br>
+**TextArea** - Multi-line text input </br>
   
-## 🎨 Styling
+## Styling
+### Built on Tailwind CSS. Override or extend styles with utility classes:
+
+```bash
+<Button className="bg-purple-500 hover:bg-purple-600">Custom Button</Button>
+```
 This library uses Tailwind CSS v4. The components come pre-styled but can be customized:
 
 
