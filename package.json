@@ -2,9 +2,9 @@
   "name": "with-tailwind",
   "private": true,
   "scripts": {
-     "build": "turbo run build --filter=!storybook",
-    "build:all": "npm run build && npm run build:storybook", 
-    "build:storybook": "cd apps/storybook && npm run build",
+      "build": "turbo run build",
+    "build:web": "turbo run build --filter=web^...",
+    "build:ui": "turbo run build --filter=ui",
     "dev": "turbo run dev",
     "storybook": "cd apps/storybook && npm run storybook",
     "lint": "turbo run lint",
