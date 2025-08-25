@@ -1,22 +1,27 @@
 "use client"
-import {ReactLenis} from "lenis/react"
+import { ReactLenis } from "lenis/react"
 
-type Props = {children: React.ReactNode};
+type Props = { children: React.ReactNode };
 
-export default function SmoothScroll({children}: Props) {
+export default function SmoothScroll({ children }: Props) {
     return (
         <ReactLenis
             root
             options={{
-                lerp: 0.15,        // Increased for quicker response (was 0.08)
-                duration: 0.8,     // Reduced for snappier feel (was 1.2)
-                syncTouch: true,
-                touchMultiplier: 2, // Much lower for normal touch (was 25)
-                smoothWheel: true,
+                lerp: 0.1,                    // Perfect balance
+                duration: 1.2,                // Industry standard
+                easing: (t) => 1 - Math.pow(1 - t, 3), // Cubic ease-out
                 orientation: 'vertical',
+                gestureOrientation: 'vertical',
+                smoothWheel: true,
+                wheelMultiplier: 1,
+                touchMultiplier: 2,
+                syncTouch: true,
+                syncTouchLerp: 0.1,
+                touchInertiaMultiplier: 35,
                 infinite: false,
-                wheelMultiplier: 1.2, // Slightly enhanced wheel sensitivity
-                gestureOrientation: 'vertical'
+                autoResize: true,
+                prevent: (node) => node.classList.contains('lenis-prevent')
             }}
         >
             {children}
