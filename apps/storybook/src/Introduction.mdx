@@ -79,6 +79,100 @@ yarn add @sume/ui
 pnpm add @sume/ui
 ```
 
+
+## 🎨 CSS Import Guide
+Essential styles setup for different frameworks and build tools
+
+After installing Sume UI with your preferred package manager, you'll need to import the CSS file to ensure all components render with their intended styling. Choose the appropriate method based on your setup:
+
+## 🚀 Next.js (App Router - Recommended)
+
+Add the CSS import to your root layout file:
+
+```bash
+// app/layout.tsx
+import '@sume/ui/styles.css' // Add this line
+import './globals.css'
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+## ⚛️ Create React App
+For standard React applications:
+```bash
+tsx
+// src/index.tsx or src/main.tsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import '@sume/ui/styles.css' // Add this line
+import './index.css'
+import App from './App'
+
+const root = ReactDOM.createRoot(document.getElementById('root')!)
+root.render(<App />)
+```
+## ⚡ Vite
+For Vite-powered React applications:
+
+```bash
+tsx
+// src/main.tsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import '@sume/ui/styles.css' // Add this line
+import './index.css'
+import App from './App.tsx'
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+``` 
+## 🌐 Remix
+For Remix applications:
+Add the CSS import to your root component:
+```bash 
+tsx
+// app/root.tsx
+import type { LinksFunction } from "@remix-run/node"
+import sumeStyles from "@sume/ui/styles.css"
+
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: sumeStyles },
+]
+```
+
+## 📦 Webpack/Custom Setup
+For custom Webpack configurations:
+Ensure your Webpack config can handle CSS imports, then add:
+
+```bash
+tsx
+// Your main entry file
+import '@sume/ui/styles.css'
+🎨 Global CSS Alternative
+Import via your global CSS file:
+```
+```bash
+css
+/* globals.css or main.css */
+@import '@sume/ui/styles.css';
+
+/* Your other global styles */
+body {
+  font-family: 'Inter', sans-serif;
+}
+```
 ### Import Components
 
 ```bash
